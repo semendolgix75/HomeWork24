@@ -11,17 +11,21 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequestMapping("/store/order")
+@RequestMapping("/order")
 public class BasketController {
-    @Autowired
-    private BasketService basketService;
 
-    @GetMapping("/add")
-    public List<Integer> add(@RequestParam List<Integer> items) {
-        return basketService.add(items);
+    private final BasketService basketService;
+
+    public BasketController(BasketService basketService) {
+        this.basketService = basketService;
     }
 
-    @GetMapping
+    @GetMapping("add")
+    public List<Integer> add(@RequestParam List<Integer> goods) {
+        return basketService.add(goods);
+    }
+
+    @GetMapping("get")
     public List<Integer> get() {
         return basketService.get();
     }
